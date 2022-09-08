@@ -38,9 +38,9 @@ module.exports = function (app, sfcon) {
                 console.log("fetched : ", result);
                 if (result.totalSize > 0) {
                     console.log('result::' + result.records[0].Id);
-                    res.status(200).json({ 'message': result.records[0].Id,'Status':'true' })
+                    res.status(200).json({ 'message': result.records[0].Id,'Status':true })
                 } else {
-                    res.status(200).json({ 'message': 'No User Found.','Status':'false' })
+                    res.status(400).json({ 'message': 'No User Found.','Status':false })
                 }
                 
                 

@@ -51,7 +51,7 @@ module.exports = function (app, sfcon) {
     app.post('/api/get_visit', async function (req, res, next) {
         console.log('Inside accountfetch')
         var records = [];
-        await sfcon.query("SELECT Id,Check_In__c,Check_Out__c,User__c,User__r.name,Visit_Date_Time__c,Name,Is_Visited__c FROM Visit__c WHERE User__c = '"
+        await sfcon.query("SELECT Id,Check_In__c,Check_Out__c,User__c,User__r.name,Visit_Date_Time__c,Name,Is_Visited__c,Customer_Name__c FROM Visit__c WHERE User__c = '"
             + req.body.userid + "'"
             , function (err, result) {
             if (err) {

@@ -63,12 +63,25 @@ module.exports = function (app, sfcon) {
                 console.log("fetched : ", result);
                 if (result.totalSize > 0) {
                     console.log('result::' + result.records[0].Id);
+
+                    let todayVisit = [];
+                    let openVisit = [];
+                    let closedVisit = [];
+
+                    
+                    result.records.forEach(visit=>{
+                        let v = {...visit};
+
+                        if(v.Visit_Date_Time__c){
+                            let visitDate = new Date(v.Visit_Date_Time__c);
+                        }
+                    })
+
+                    let responseObj = {'todayVisit':todayVisit,'openVisit':openVisit,'closedVisit':closedVisit};
                     res.status(200).json({ 'message': result.records,'Status':'true' })
                 } else {
                     res.status(200).json({ 'message': 'No visit available for user','Status':'false' })
                 }
-                
-                
         });
 
     })

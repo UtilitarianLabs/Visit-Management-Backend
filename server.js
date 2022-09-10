@@ -37,6 +37,7 @@ conn.login('ajeet.kumar@utilitarianlab.com.sitevisit', 'ajeet@123', function(err
 });
 console.log('conn::' + conn);
 require('./routesapi')(app, conn);
+require('./routeapi')(app, conn);
 
 
 

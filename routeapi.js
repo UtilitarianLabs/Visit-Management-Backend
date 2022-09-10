@@ -43,6 +43,24 @@ module.exports = function (app, sfcon) {
         }
     });
 
+    app.post("/api/checkout", async function (req, res, next) {
+        try {
+          await sfcon
+            .sobject("Visit__c")
+            .update(req.body, function (err, response) {
+              if (err) {
+                console.log("err::" + err);
+                return console.log(err);
+              }
+              console.log("response" + JSON.stringify(response));
+              res.send(JSON.stringify(response));
+            });
+        } catch (err) {
+          console.log(err);
+          next(err);
+        }
+    });
+
     app.post("/api/updateprofile", async function (req, res, next) {
         try {
           await sfcon

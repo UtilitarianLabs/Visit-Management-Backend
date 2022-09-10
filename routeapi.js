@@ -14,8 +14,12 @@ module.exports = function (app, sfcon) {
                     if (result.totalSize > 0) {
                         console.log('result::' + result.records[0].Id);
                         let response = result.records[0];
+
+                        response.BillingLatitude = response.Outlet__r.BillingLatitude;
+                        response.BillingLongitude = response.Outlet__r.BillingLongitude;
+
                         delete response.attributes;
-                        delete response.Outlet__r.attributes
+                        delete response.Outlet__r;
                         res.status(200).json({ 'message': response,'Status':true })
                     } else {
                         res.status(200).json({ 'message': 'No User Found.','Status':false })

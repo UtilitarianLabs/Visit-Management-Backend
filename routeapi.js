@@ -139,7 +139,7 @@ module.exports = function (app, sfcon) {
     })
 
 
-    app.post('/api/getOutlet', async function (req, res, next) {
+    app.get('/api/getOutlet', async function (req, res, next) {
 
         await sfcon.query("SELECT Id,Name FROM Account limit 20"
             ,function (err, result) {

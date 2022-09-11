@@ -27,6 +27,31 @@ module.exports = function (app, sfcon) {
         });
     })
 
+    app.post('/api/todayVisited', async function (req, res, next) {
+        await sfcon.query("SELECT Id,Name,Is_visited__c FROM Visit__c " +
+            "WHERE Visit_Date__c = " +
+            req.body.todayDate+" AND Employee__c = '"+req.body.emp_code+"'"
+            , function (err, result) {
+                    if (err) {
+                        console.log('err::' + err);
+                        return console.error(err);
+                    }
+            
+                    console.log("total : " + result.totalSize);
+                    console.log("fetched : ", result);
+                    if (result.totalSize > 0) {
+                        console.log('result::' + result.records[0].Id);
+                        let response = result.records[0];
+
+                        delete response.attributes;
+                        res.status(200).json({ 'message': response,'Status':true })
+                    } else {
+                        res.status(200).json({ 'message': 'No User Found.','Status':false })
+                    }
+        });
+    })
+
+    
 
     app.post("/api/checkin", async function (req, res, next) {
         try {
@@ -90,7 +115,7 @@ module.exports = function (app, sfcon) {
 
         await sfcon.query("SELECT Id,Name,Visit_Date__c,Is_Visited__c,Visit_Time__c FROM Visit__c " +
             "WHERE Visit_Date__c>" +
-            req.body.startDate + " AND Visit_Date__c < " + req.body.endDate
+            req.body.startDate + " AND Visit_Date__c < " + req.body.endDate+" AND Employee__c = '"+req.body.emp_code+"'"
             ,function (err, result) {
                     if (err) {
                         console.log('err::' + err);

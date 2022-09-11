@@ -138,4 +138,30 @@ module.exports = function (app, sfcon) {
             );
     })
 
+
+    app.post('/api/getOutlet', async function (req, res, next) {
+
+        await sfcon.query("SELECT Id,Name FROM Account limit 20"
+            ,function (err, result) {
+                    if (err) {
+                        console.log('err::' + err);
+                        return console.error(err);
+                    }
+        
+                    if (result.totalSize > 0) {
+                        let response = [];
+
+                        result.records.forEach(visit => {
+                            delete visit.attributes;
+                            response.push(visit);
+                        });
+                       
+                        res.status(200).json({ 'message': response,'Status':true })
+                    } else {
+                        res.status(200).json({ 'message': 'No outlet Found.','Status':false })
+                    }
+                }
+            );
+    })
+
 }

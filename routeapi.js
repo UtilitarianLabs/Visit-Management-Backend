@@ -1,6 +1,6 @@
 module.exports = function (app, sfcon) {
     app.post('/api/signin', async function (req, res, next) {
-        await sfcon.query("SELECT Id,Name,Outlet__c,Outlet__r.BillingLatitude,Outlet__r.BillingLongitude,Password__c,Username__c FROM Employee__c " +
+        await sfcon.query("SELECT Id,Name,Outlet__c,Phone__c,Outlet__r.BillingLatitude,Outlet__r.BillingLongitude,Password__c,Username__c FROM Employee__c " +
             "WHERE Username__c = '" +
             req.body.username + "' AND Password__c = '" + req.body.password + "'"
             , function (err, result) {
@@ -46,7 +46,7 @@ module.exports = function (app, sfcon) {
                         delete response.attributes;
                         res.status(200).json({ 'message': response,'Status':true })
                     } else {
-                        res.status(200).json({ 'message': 'No User Found.','Status':false })
+                        res.status(200).json({ 'message': 'No record found.','Status':false })
                     }
         });
     })

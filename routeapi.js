@@ -114,8 +114,8 @@ module.exports = function (app, sfcon) {
         console.log(startDate,endDate);
 
         await sfcon.query("SELECT Id,Name,Visit_Date__c,Is_Visited__c,Visit_Time__c FROM Visit__c " +
-            "WHERE Visit_Date__c>" +
-            req.body.startDate + " AND Visit_Date__c < " + req.body.endDate+" AND Employee__c = '"+req.body.emp_code+"'"
+            "WHERE Visit_Date__c>=" +
+            req.body.startDate + " AND Visit_Date__c <= " + req.body.endDate+" AND Employee__c = '"+req.body.emp_code+"'"
             ,function (err, result) {
                     if (err) {
                         console.log('err::' + err);
